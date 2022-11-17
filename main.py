@@ -1,9 +1,10 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
-from PyQt5.QtWidgets import QLineEdit, QToolButton
+from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
+from PyQt5.QtGui import QFont
 
 from Seatnum import Seat
 from Room import Room
@@ -32,22 +33,34 @@ class Login(QWidget):
         id_text = QLineEdit()
         pw_text = QLineEdit()
 
+        title = QLabel("국민대 자습실 현황",self)
+        title.setFont(QFont("Arial", 20))
+
+        id_text.setPlaceholderText("아이디")
+        pw_text.setPlaceholderText("비밀번호")
+        pw_text.setEchoMode(QLineEdit.Password)
+
         # Digit Buttons
-        Login_btn = Button("login", self.loginComfirm)
+        Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), pw_text.text()))
 
         # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
-        mainLayout.addWidget(id_text, 0, 0)
-        mainLayout.addWidget(pw_text, 1, 0)
-        mainLayout.addWidget(Login_btn, 2, 0)
+        mainLayout.addWidget(title, 0, 0)
+        mainLayout.addWidget(id_text, 1, 0)
+        mainLayout.addWidget(pw_text, 2, 0)
+        mainLayout.addWidget(Login_btn, 3, 0)
 
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
-    def loginComfirm(self):
-        if True:
+    def loginComfirm(self, id, pw):
+        if id == '':
+            QMessageBox.about(self, "로그인", "아이디를 입력하세요")
+        elif pw == '':
+            QMessageBox.about(self, "로그인", "비밀번호를 입력하세요")
+        else:
             self.switch_window.emit()
 
 class Main(QWidget):
@@ -136,13 +149,11 @@ class Controller:
         self.main.close()
         self.seat.show()
 
-
 def main():
     app = QApplication(sys.argv)
     controller = Controller()
     controller.show_login()
     sys.exit(app.exec_())
-
 
 if __name__ == '__main__':
     main()

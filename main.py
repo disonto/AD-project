@@ -161,3 +161,5 @@ if __name__ == '__main__':
 #참고한 코드 : https://stackoverflow.com/questions/40982518/argument-1-has-unexpected-type-nonetype
 #    https://blog.naver.com/PostView.naver?blogId=jochanig&logNo=222454643551&categoryNo=1&parentCategoryNo=1&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView
 #    소프2 계산기
+#    https://wikidocs.net/35792
+#    https://mr-doosun.tistory.com/10

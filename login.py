@@ -3,3 +3,8 @@
 # main으로부터 받은 id,pw를 on국민에 넣었을 때의 웹페이지를 크롤링하여 국민대 학생인지 확인한다
 # view-source:https://portal.kookmin.ac.kr/por/ln -570line
 # view-source:https://sso.kookmin.ac.kr/sso/error.jsp
+from PyQt5.QtWidgets import QMessageBox
+
+class loginComfirm():
+    def loginComfirm(self):
+        pass

@@ -8,7 +8,9 @@ from PyQt5.QtGui import QFont
 
 from Seatnum import Seat
 from Room import Room
+from login import loginComfirm
 
+# mycalc3의 Button class 그대로 가져옴
 class Button(QToolButton):
 
     def __init__(self, text, callback):
@@ -23,24 +25,26 @@ class Button(QToolButton):
         size.setWidth(max(size.width(), size.height()))
         return size
 
+# 로그인 창의 GUI 코드
 class Login(QWidget):
+    login = loginComfirm()
     switch_window = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
         # Display Window
+        title = QLabel("국민대 자습실 현황", self)
+        title.setFont(QFont("Arial", 20))
+
         id_text = QLineEdit()
         pw_text = QLineEdit()
-
-        title = QLabel("국민대 자습실 현황",self)
-        title.setFont(QFont("Arial", 20))
 
         id_text.setPlaceholderText("아이디")
         pw_text.setPlaceholderText("비밀번호")
         pw_text.setEchoMode(QLineEdit.Password)
 
-        # Digit Buttons
+        # Button
         Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), pw_text.text()))
 
         # Layout
@@ -55,6 +59,8 @@ class Login(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
+    # 로그인 정보가 맞다면 Controller에 신호보냄
+    # loginComfirm을 login.py로 넘기면 좋을것같음
     def loginComfirm(self, id, pw):
         if id == '':
             QMessageBox.about(self, "로그인", "아이디를 입력하세요")
@@ -63,8 +69,11 @@ class Login(QWidget):
         else:
             self.switch_window.emit()
 
+# 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
-    Seat = Seat()
+    entireSeat = input() # 가려고 하는 장소의 좌석 수, 서버에서 받아야와 함
+    unableSeat = input() # 앉을 수 없는 좌석 수, 서버에서 받아야와 함
+    Seat = Seat(int(unableSeat), int(entireSeat))
     switch_window = pyqtSignal(str)
 
     def __init__(self, parent=None):
@@ -74,11 +83,14 @@ class Main(QWidget):
 
         # Digit Buttons
         roomLayout = QGridLayout()
+
+        # roomlist을 room.py로 넘기면 좋을것같음
         roomlist = [
-            "미래관 449호 : ", "공학관 ***호 : ", "00관 ***호 : ",
-            "00관 ***호 : ", "00관 ***호 : ", "00관 ***호 : ",
-            "00관 ***호 : ", "00관 ***호 : ", "00관 ***호 : ",
+            "미래관449호 : ", "공학관***호 : ", "00관***호 : ",
+            "00관***호 : ", "00관***호 : ", "00관***호 : ",
+            "00관***호 : ", "00관***호 : ", "00관***호 : ",
         ]
+
         r = 0; c = 0
         for btnText in roomlist:
             button = Button(btnText + str(Seat.Seatnum), self.Switch)
@@ -97,20 +109,28 @@ class Main(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
+    # Controller에 보낼 신호를 생성
+    # 버튼을 누르면 Controller에 방이름 신호보냄
     def Switch(self):
         button = self.sender()
         key = button.text()[:-5]
-        if True:
-            self.switch_window.emit(key)
+        self.switch_window.emit(key)
 
+# 방의 상세정보를 보여주는 창의 GUI 코드
 class Reservation(QWidget):
     switch_window = pyqtSignal()
 
     def __init__(self, room):
         super().__init__()
-        title = QLabel(room, self)
-        quit_btn = Button("나가기", self.quit)
 
+        # Display Window
+        title = QLabel(room, self)
+
+        # Digit Buttons
+        quit_btn = Button("나가기", self.quit)
+        # 좌석배치에 맞는 버튼을 생성
+
+        # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
@@ -120,10 +140,11 @@ class Reservation(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
+    # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
-        if True:
-            self.switch_window.emit()
+        elf.switch_window.emit()
 
+# 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:
 
     def __init__(self):

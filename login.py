@@ -7,3 +7,5 @@ from PyQt5.QtWidgets import QMessageBox
 class loginComfirm():
     def loginComfirm(self):
         pass
+    def test(self):
+        pass

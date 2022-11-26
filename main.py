@@ -73,7 +73,7 @@ class Login(QWidget):
 class Main(QWidget):
     entireSeat = input() # 가려고 하는 장소의 좌석 수, 서버에서 받아야와 함
     unableSeat = input() # 앉을 수 없는 좌석 수, 서버에서 받아야와 함
-    Seat = Seat(int(unableSeat), int(entireSeat))
+    Seat = Seat(int(unableSeat), int(entireSeat)) # 여기 ValueError 뜨는데 고쳐야할듯
     switch_window = pyqtSignal(str)
 
     def __init__(self, parent=None):
@@ -142,7 +142,7 @@ class Reservation(QWidget):
 
     # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
-        elf.switch_window.emit()
+        self.switch_window.emit()
 
 # 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:

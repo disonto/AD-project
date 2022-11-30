@@ -1,4 +1,5 @@
 import sys
+import asyncio
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
@@ -6,7 +7,7 @@ from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 from PyQt5.QtGui import QFont
 
-from Seatnum import Seat
+from Seatnum import Seat, TcpClientAsync
 from Room import Room1, Room2, Room3, Room4, Room5, Room6
 from login import check
 
@@ -184,6 +185,29 @@ class Controller:
         self.seat.switch_window.connect(lambda: self.show_main('seat'))
         self.main.close()
         self.seat.show()
+
+# 버튼 클릭시 서버로 신호를 보내는 클래스
+class ClientHandler:
+    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+        self.client = TcpClientAsync(reader, writer)
+
+    async def funcAHandler(self):
+        pass # do something async
+
+    async def funcBHandler(self):
+        pass # do something async
+
+    # ...
+
+    async def startHandle(self):
+        while True:
+            await self.funcAHandler()
+            # await self.funcBHandler
+            # ...
+
+async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+    clientHandler = ClientHandler(reader, writer)
+    await clientHandler.startHandle()
 
 def main():
     app = QApplication(sys.argv)

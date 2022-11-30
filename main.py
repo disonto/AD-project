@@ -74,8 +74,8 @@ class Login(QWidget):
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
     # 일단 돌아가는지 확인하기 위해서 unable은 10으로, entire을 20으로 설정하도록 하자. -> 이제 오류 안나는데 확인바람
-    entireSeat = int(input()) # 가려고 하는 장소의 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
-    unableSeat = int(input()) # 앉을 수 없는 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
+    entireSeat = 20 # 가려고 하는 장소의 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
+    unableSeat = 10 # 앉을 수 없는 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
     Seat = Seat(entireSeat, unableSeat)
     switch_window = pyqtSignal(str)
 

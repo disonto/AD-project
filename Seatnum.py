@@ -2,7 +2,7 @@
 from threading import Thread
 from socket import *
 from PyQt5.QtCore import Qt, pyqtSignal, QObject
-from Room import Room
+from Room import Room1, Room2, Room3, Room4, Room5, Room6
 
 port = 8080
 
@@ -39,8 +39,8 @@ class ServerSocket(QObject):
         self.threads = []
         
         # 임시방편으로 변수 설정
-        self.UnableSeat = Seat.getUnableSeatNum = Room.미래관449호.__len__()
-        self.Seat = Seat.getSeatNum = Room.미래관449호.__len__()
+        self.UnableSeat = Seat.getUnableSeatNum = Room1.미래관449호.__len__()
+        self.Seat = Seat.getSeatNum = Room1.미래관449호.__len__()
         Seat.getLeftSeatNum = self.Seat - self.UnableSeat
         
     def __del__(self):
@@ -102,6 +102,6 @@ class ServerSocket(QObject):
     def send(self, msg):
         try:
             for c in self.clients:
-                c.send(msg = Room.미래관449호.__len__(self))
+                c.send(msg)
         except Exception as e:
             print('Send() Error : ', e)

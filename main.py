@@ -76,7 +76,7 @@ class Main(QWidget):
     Seat = Seat(int(unableSeat), int(entireSeat))
     switch_window = pyqtSignal(str)
 
-    def __init__(self, parent=None):
+    def __init__(self):
         super().__init__()
 
         # Display Window
@@ -97,7 +97,7 @@ class Main(QWidget):
             roomLayout.addWidget(button, r, c)
             c += 1
             if c > 2:
-                c = 0;
+                c = 0
                 r += 1
 
         # Layout
@@ -142,7 +142,7 @@ class Reservation(QWidget):
 
     # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
-        elf.switch_window.emit()
+        self.switch_window.emit()
 
 # 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:

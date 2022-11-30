@@ -139,6 +139,12 @@ class Reservation(QWidget):
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
         mirae = Room()
+        bokseven = Room()
+        bubhak = Room()
+        bokthree = Room()
+        boksix = Room()
+        bokone = Room()
+        
         mainLayout.addWidget(title, 0, 0)
         mainLayout.addLayout(mirae.miraeLayout, 1, 0)
         mainLayout.addWidget(quit_btn, 6, 9)

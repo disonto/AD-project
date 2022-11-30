@@ -77,42 +77,70 @@ class Room2():
 
         self.bubhakbutton = [x for x in range(0 , 128)]
         
-        for i in range(0, 128):
-            if i == 0:
-                self.bubhakbutton[i] = Button(str(1), self.buttonClicked)
-            if i == 2:
-                self.bubhakbutton[i] = Button(str(2), self.buttonClicked)
-            if i == 6:
-                self.bubhakbutton[i] = Button(str(3), self.buttonClicked)        
+        for i in range(0, 128):      
             if i == 1 or 3 or 4 or 5 or 7:
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            if i == 0:
+                self.bubhakbutton[i] = Button(str("1"), self.buttonClicked)
+            if i == 2:
+                self.bubhakbutton[i] = Button(str("2"), self.buttonClicked)
+            if i == 6:
+                self.bubhakbutton[i] = Button(str("3"), self.buttonClicked)  
             for i in range(8 , 16):
                 self.bubhakbutton[i] = Button(str(i-4), self.buttonClicked)
-            if i == 16:
-                self.bubhakbutton[i] = Button(str(12), self.buttonClicked)
-            if i == 18:
-                self.bubhakbutton[i] = Button(str(13), self.buttonClicked)
-            if i == 20:
-                self.bubhakbutton[i] = Button(str(14), self.buttonClicked)
-            if i == 22:
-                self.bubhakbutton[i] = Button(str(15), self.buttonClicked)
             for i in range(23, 32):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
-            if i == 17 or 19 or 21:
+            for i in range(17, 18):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
-            if i == 32 or 34 or 36 or 38:
+            for i in range(19, 21):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(21, 22):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(16, 17):
+               self.bubhakbutton[i] = Button(str("12"), self.buttonClicked)
+            for i in range(18, 19):
+                self.bubhakbutton[i] = Button(str("13"), self.buttonClicked)
+            for i in range(20, 21):
+                self.bubhakbutton[i] = Button(str("14"), self.buttonClicked)
+            for i in range(22, 23):
+                self.bubhakbutton[i] = Button(str("15"), self.buttonClicked)
+            for i in range(33, 34):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(35, 36):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(37, 38):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(39, 40):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(32, 33):
                 self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
-            if i == 33 or 35 or 37 or 39:
-                self.bubhakbutton[i] = Button("X", self.buttonClicked)
-            if i == 40 or 41:
+            for i in range(34, 35):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(36, 37):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(38, 39):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(40, 42):
                 self.bubhakbutton[i] = Button(str(i-20), self.buttonClicked)
             for i in range(42 , 46):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
             for i in range(46 , 48):
                 self.bubhakbutton[i] = Button(str(i-24), self.buttonClicked)
-            if i == 48 or 50 or 52 or 54:
+            for i in range(48, 49):
                 self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
-            if i == 49 or 51 or 53 or 55:
+            for i in range(50, 51):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(52, 53):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(54, 55):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(49, 50):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(51, 52):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(53, 54):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(55, 56):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
             for i in range(56 , 58):
                 self.bubhakbutton[i] = Button(str(i-28), self.buttonClicked)
@@ -120,9 +148,21 @@ class Room2():
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
             for i in range(62 , 64):
                 self.bubhakbutton[i] = Button(str(i-32), self.buttonClicked)
-            if i == 64 or 66 or 68 or 70:
+            for i in range(64 , 65):
                 self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
-            if i == 65 or 67 or 69 or 71:
+            for i in range(66 , 67):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(68 , 69):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(70 , 71):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(65 , 66):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(67 , 68):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(69 , 70):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(71 , 72):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
             for i in range(72 , 74):
                 self.bubhakbutton[i] = Button(str(i-36), self.buttonClicked)
@@ -130,11 +170,23 @@ class Room2():
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
             for i in range(78 , 80):
                 self.bubhakbutton[i] = Button(str(i-40), self.buttonClicked)
-            if i == 80 or 82 or 84 or 86:
+            for i in range(80 , 81):
                 self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
-            if i == 81 or 83 or 85 or 87:
+            for i in range(82 , 83):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(84 , 85):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(86 , 87):
+                self.bubhakbutton[i] = Button(str(i//2), self.buttonClicked)
+            for i in range(81 , 82):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)
-            if i == 88 or 89:
+            for i in range(83 , 84):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(85 , 86):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(87 , 88):
+                self.bubhakbutton[i] = Button("X", self.buttonClicked)
+            for i in range(88, 90):
                 self.bubhakbutton[i] = Button(str(i-44), self.buttonClicked)
             for i in range(90 , 94):
                 self.bubhakbutton[i] = Button("X", self.buttonClicked)

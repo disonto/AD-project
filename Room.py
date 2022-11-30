@@ -1,6 +1,65 @@
-#방들의 좌석배치
-# 확인하고 몇 자리인지 파악은 끝났는데, 번호 매기는 기준을 정하지 못했음.
+import sys
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
+from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QLayout, QGridLayout
+from PyQt5.QtGui import QFont
+
+class Button(QToolButton):
+
+    def __init__(self, text, callback):
+        super().__init__()
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        self.setText(text)
+        self.clicked.connect(callback)
+
+    def sizeHint(self):
+        size = super(Button, self).sizeHint()
+        size.setHeight(size.height() + 20)
+        size.setWidth(max(size.width(), size.height()))
+        return size
+
 class Room():
+    def __init__(self, parent=None):
+        super().__init__()
+
+        self.miraebutton = [x for x in range(0 , 45)]
+        for i in range(0 , 4):
+            self.miraebutton[i] = Button(str(i+1), self.buttonClicked)
+        for i in range(4, 5):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(5 , 9):
+            self.miraebutton[i] = Button(str(i), self.buttonClicked)
+        for i in range(9 , 18):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(18 , 22):
+            self.miraebutton[i] = Button(str(i-9), self.buttonClicked)
+        for i in range(22 , 23):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(23 , 27):
+            self.miraebutton[i] = Button(str(i-10), self.buttonClicked)
+        for i in range(27 , 36):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(36 , 40):
+            self.miraebutton[i] = Button(str(i-19), self.buttonClicked)
+        for i in range(40 , 45):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        
+        self.miraeLayout = QGridLayout()
+
+        for i in range(0, 45):
+            if 0 <= i <= 8:
+                self.miraeLayout.addWidget(self.miraebutton[i], 0, i)
+            elif 9 <= i <= 17:
+                self.miraeLayout.addWidget(self.miraebutton[i], 1, i-9)
+            elif 18 <= i <= 26:
+                self.miraeLayout.addWidget(self.miraebutton[i], 2, i-18)
+            elif 27 <= i <= 35:
+                self.miraeLayout.addWidget(self.miraebutton[i], 3, i-27)
+            elif 36 <= i <= 44:
+                self.miraeLayout.addWidget(self.miraebutton[i], 4, i-36)
+
     미래관449호 = [
         "1", "2", "3", "4", "5",
         "6", "7", "8", "9", "10",
@@ -79,3 +138,7 @@ class Room():
         "21", "22", "23", "24", "25",
         "26"
     ]
+    
+    def buttonClicked(self):
+        button = self.sender()
+        key = button.text()

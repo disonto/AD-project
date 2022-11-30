@@ -138,9 +138,11 @@ class Reservation(QWidget):
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
+        mirae = Room()
         mainLayout.addWidget(title, 0, 0)
-        mainLayout.addWidget(quit_btn, 1, 0)
-
+        mainLayout.addLayout(mirae.miraeLayout, 1, 0)
+        mainLayout.addWidget(quit_btn, 6, 9)
+        
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 

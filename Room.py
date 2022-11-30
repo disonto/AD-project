@@ -418,8 +418,8 @@ class Room6():
     def __init__(self, parent=None):
         super().__init__()
 
-        self.bokjisevenbutton = [x for x in range(0 , 247)]
-        for i in range(0, 247):
+        self.bokjisevenbutton = [x for x in range(0 , 220)]
+        for i in range(0, 220):
             for i in range(0 , 4):
                 self.bokjisevenbutton[i] = Button(str(i+1), self.buttonClicked)
             for i in range(4, 5):
@@ -496,36 +496,22 @@ class Room6():
                 self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
             for i in range(175 , 180):
                 self.bokjisevenbutton[i] = Button(str(i-114), self.buttonClicked)
-            for i in range(180 , 186):
+            for i in range(180 , 185):
                 self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(186 , 187):
-                self.bokjisevenbutton[i] = Button(str(i-129), self.buttonClicked)
-            for i in range(187 , 192):
+            for i in range(185 , 186):
+                self.bokjisevenbutton[i] = Button(str(i-119), self.buttonClicked)
+            for i in range(186 , 191):
                 self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(192 , 195):
-                self.bokjisevenbutton[i] = Button(str(i-134), self.buttonClicked)
-            for i in range(195 , 196):
+            for i in range(191 , 194):
+                self.bokjisevenbutton[i] = Button(str(i-124), self.buttonClicked)
+            for i in range(194 , 215):
                 self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(196 , 201):
-                self.bokjisevenbutton[i] = Button(str(i-135), self.buttonClicked)
-            for i in range(201 , 207):
-                self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(207 , 208):
-                self.bokjisevenbutton[i] = Button(str(i-141), self.buttonClicked)
-            for i in range(208 , 213):
-                self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(213 , 216):
-                self.bokjisevenbutton[i] = Button(str(i-146), self.buttonClicked)
-            for i in range(216 , 237):
-                self.bokjisevenbutton[i] = Button("X", self.buttonClicked)
-            for i in range(237 , 242):
-                self.bokjisevenbutton[i] = Button(str(i-167), self.buttonClicked)
-            for i in range(237, 247):
-                self.bokjisevenbutton[i] = Button("X", self.buttonClicked)        
+            for i in range(215 , 220):
+                self.bokjisevenbutton[i] = Button(str(i-145), self.buttonClicked)     
         
         self.bokjisevenLayout = QGridLayout()
 
-        for i in range(0, 247):
+        for i in range(0, 220):
             if 0 <= i <= 19:
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 0, i)
             elif 20 <= i <= 39:
@@ -538,7 +524,7 @@ class Room6():
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 4, i-80)
             elif 100 <= i <= 119:
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 5, i-100)
-            elif 120 <= i <= 129:
+            elif 120 <= i <= 139:
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 6, i-120)
             elif 140 <= i <= 159:
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 7, i-140)
@@ -548,10 +534,6 @@ class Room6():
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 9, i-180)
             elif 200 <= i <= 219:
                 self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 10, i-200)
-            elif 220 <= i <= 239:
-                self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 11, i-220)
-            elif 240 <= i <= 246:
-                self.bokjisevenLayout.addWidget(self.bokjisevenbutton[i], 12, i-240)
 
     def buttonClicked(self):
         button = self.sender()

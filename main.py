@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QLayout, QGridLayout
 from PyQt5.QtGui import QFont
 
 from Seatnum import Seat
-from Room import Room
+from Room import Room1, Room2, Room3, Room4, Room5, Room6
 from login import check
 
 # mycalc3의 Button class 그대로 가져옴
@@ -142,7 +142,12 @@ class Reservation(QWidget):
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
-        mirae = Room()
+        mirae = Room1()
+        bubhak = Room2()
+        bokjione = Room3()
+        bokjithree = Room4()
+        bokjisix = Room5()
+        bokjiseven = Room6()
         mainLayout.addWidget(title, 0, 0)
         mainLayout.addLayout(mirae.miraeLayout, 1, 0)
         mainLayout.addWidget(quit_btn, 6, 9)

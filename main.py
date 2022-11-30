@@ -59,7 +59,7 @@ class Login(QWidget):
         self.setWindowTitle("Seat Reservation")
 
     # 로그인 정보가 맞다면 Controller에 신호보냄
-        def loginComfirm(self, id, pw):
+    def loginComfirm(self, id, pw):
         if id == '':
             QMessageBox.about(self, "로그인", "아이디를 입력하세요")
         elif pw == '':
@@ -143,12 +143,6 @@ class Reservation(QWidget):
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
         mirae = Room()
-        bokseven = Room()
-        bubhak = Room()
-        bokthree = Room()
-        boksix = Room()
-        bokone = Room()
-        
         mainLayout.addWidget(title, 0, 0)
         mainLayout.addLayout(mirae.miraeLayout, 1, 0)
         mainLayout.addWidget(quit_btn, 6, 9)

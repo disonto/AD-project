@@ -93,7 +93,10 @@ class Main(QWidget):
 
         r = 0; c = 0
         for btnText in roomlist:
-            button = Button(btnText + str(Seat.getSeatNum()), self.Switch)
+            # 돌아가는지 확인하기 위해 Seat(10, 20)으로 설정.
+            # 각각마다 n, m의 값이 달라지니 이를 받아와야할듯.
+            s = Seat(10, 20)
+            button = Button(btnText + str(s.getSeatNum()), self.Switch)
             roomLayout.addWidget(button, r, c)
             c += 1
             if c > 2:

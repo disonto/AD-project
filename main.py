@@ -93,7 +93,7 @@ class Main(QWidget):
 
         r = 0; c = 0
         for btnText in roomlist:
-            button = Button(btnText + str(Seat.Seatnum), self.Switch)
+            button = Button(btnText + str(Seat.getSeatNum()), self.Switch)
             roomLayout.addWidget(button, r, c)
             c += 1
             if c > 2:
@@ -142,7 +142,7 @@ class Reservation(QWidget):
 
     # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
-        elf.switch_window.emit()
+        self.switch_window.emit()
 
 # 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:

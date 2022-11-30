@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import QLayout, QGridLayout
 from PyQt5.QtGui import QFont
 
 from Seatnum import Seat
-from Room import Room
-from login import loginComfirm
+from Room import Room1, Room2, Room3, Room4, Room5, Room6
+from login import check
 
 # mycalc3의 Button class 그대로 가져옴
 class Button(QToolButton):
@@ -27,7 +27,6 @@ class Button(QToolButton):
 
 # 로그인 창의 GUI 코드
 class Login(QWidget):
-    login = loginComfirm()
     switch_window = pyqtSignal()
 
     def __init__(self):
@@ -60,14 +59,17 @@ class Login(QWidget):
         self.setWindowTitle("Seat Reservation")
 
     # 로그인 정보가 맞다면 Controller에 신호보냄
-    # loginComfirm을 login.py로 넘기면 좋을것같음
     def loginComfirm(self, id, pw):
         if id == '':
             QMessageBox.about(self, "로그인", "아이디를 입력하세요")
         elif pw == '':
             QMessageBox.about(self, "로그인", "비밀번호를 입력하세요")
         else:
-            self.switch_window.emit()
+            result = check(id, pw)
+            if result:
+                self.switch_window.emit()
+            else:
+                QMessageBox.about(self, "로그인", "아이디 비밀번호가 잘못되었습니다")
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
@@ -140,9 +142,16 @@ class Reservation(QWidget):
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
+        mirae = Room1()
+        bubhak = Room2()
+        bokjione = Room3()
+        bokjithree = Room4()
+        bokjisix = Room5()
+        bokjiseven = Room6()
         mainLayout.addWidget(title, 0, 0)
-        mainLayout.addWidget(quit_btn, 1, 0)
-
+        mainLayout.addLayout(mirae.miraeLayout, 1, 0)
+        mainLayout.addWidget(quit_btn, 6, 9)
+        
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 

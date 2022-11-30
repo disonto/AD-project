@@ -77,7 +77,7 @@ class Main(QWidget):
     Seat = Seat(entireSeat, unableSeat)
     switch_window = pyqtSignal(str)
 
-    def __init__(self, parent=None):
+    def __init__(self):
         super().__init__()
 
         # Display Window
@@ -103,7 +103,7 @@ class Main(QWidget):
             roomLayout.addWidget(button, r, c)
             c += 1
             if c > 2:
-                c = 0;
+                c = 0
                 r += 1
 
         # Layout

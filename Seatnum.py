@@ -102,6 +102,6 @@ class ServerSocket(QObject):
     def send(self, msg):
         try:
             for c in self.clients:
-                c.send(msg)
+                c.send(msg = Room.미래관449호.__len__(self))
         except Exception as e:
             print('Send() Error : ', e)

@@ -5,10 +5,10 @@ class Seat():
         self.entireSeatNum = n
         self.alreadyTaken = m
         if n < m:
-            self.Seatnum = "error!"
+            self.Seatnum = "Error; 전체 좌석수가 이미 누군가 사용중인 좌석수보다 적습니다."
         self.Seatnum = n-m
 
-    def getSearNum(self):
+    def getSeatNum(self):
         return self.entireSeatNum
 
     def getAlreadyTakenSeatNum(self):

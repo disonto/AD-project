@@ -39,9 +39,9 @@ class ServerSocket(QObject):
         self.threads = []
         
         # 임시방편으로 변수 설정
-        self.takenSeat = Seat.getUnableSeatNum = Room.미래관449호.__len__()
-        self.entireSeat = Seat.getSeatNum = Room.미래관449호.__len__()
-        Seat.getLeftSeatNum = self.entireSeat - self.takenSeat
+        self.UnableSeat = Seat.getUnableSeatNum = Room.미래관449호.__len__()
+        self.Seat = Seat.getSeatNum = Room.미래관449호.__len__()
+        Seat.getLeftSeatNum = self.Seat - self.UnableSeat
         
     def __del__(self):
         self.stop()

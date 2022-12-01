@@ -1,4 +1,11 @@
 #남은 좌석 알려주는 파일
+import asyncio
+import pickle
+from PyQt5.QtCore import Qt, pyqtSignal, QObject
+from Room import Room1, Room2, Room3, Room4, Room5, Room6
+
+PACKET_SIZE = 256
+
 class Seat():
     def __init__(self, ent, una):
         # ent값과 una값은 각 학습 공간별 정보를 불러올 예정
@@ -16,3 +23,33 @@ class Seat():
 
     def getLeftSeatNum(self):
         return self.Seatnum
+
+# async를 이용한 비동기적 TCP 통신 수행 클래스
+class TcpClientAsync():
+    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+        self.__reader = reader
+        self.__writer = writer
+
+    # 데이터를 비동기적으로 수신합니다.
+    async def getDataAsync(self, packetSize: int = PACKET_SIZE):
+        packet = b''
+
+        dataSize = int.from_bytes(await self.__reader.read(packetSize), 'little')
+
+        while dataSize > 0:
+            packet += await self.__reader.read(min(dataSize, packetSize))
+            dataSize -= packetSize
+
+        return pickle.loads(packet)
+
+    # 데이터를 비동기적으로 송신합니다.
+    async def sendDataAsync(self, data, packetSize: int = PACKET_SIZE):
+        packet = pickle.dumps(data)
+
+        await self.__writer.drain()
+        self.__writer.write(len(packet).to_bytes(packetSize, 'little'))
+
+        while packet:
+            await self.__writer.drain()
+            self.__writer.write(packet[:packetSize])
+            packet = packet[packetSize:]

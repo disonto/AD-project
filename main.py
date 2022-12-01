@@ -191,18 +191,15 @@ class ClientHandler:
         self.client = TcpClientAsync(reader, writer)
 
     async def funcAHandler(self):
-        pass # do something async
+        pass # 버튼 누르면 seat 변수 계산
 
     async def funcBHandler(self):
-        pass # do something async
-
-    # ...
+        pass # 버튼 누르면 'X' 표시 뜨게 함
 
     async def startHandle(self):
         while True:
             await self.funcAHandler()
-            # await self.funcBHandler
-            # ...
+            await self.funcBHandler()
 
 async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
     clientHandler = ClientHandler(reader, writer)

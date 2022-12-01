@@ -1,7 +1,6 @@
 import sys
 import asyncio
 import random
-import Room
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
@@ -12,6 +11,7 @@ from PyQt5.QtGui import QFont
 
 from Seatnum import Seat, TcpClientAsync
 from Room import Room1, Room2, Room3, Room4, Room5, Room6
+from Room import roomlist, numlist, Room_value
 from login import check
 
 # mycalc3의 Button class 그대로 가져옴
@@ -87,39 +87,18 @@ class Main(QWidget):
         # Digit Buttons
         roomLayout = QGridLayout()
 
-        # roomlist을 room.py로 넘기면 좋을것같음
-        # 6개 정도? 아니면 미래관 449랑 복지관 317, 복지관 306 정도로만 줄여도 될 듯.
-        roomlist = [
-            "미래관 449호 : ", "복지관 317호 : ", "법학관 스터디카페 : ",
-            "복지관 303호 : ", "복지관 306호 : ", "복지관 311호 : ",
-        ]
-
-        seatnumlist = [
-            Room1.미래관449호[-1], Room6.복지관317호[-1], Room2.법학관스터디카페[-1],
-            Room4.복지관303호[-1], Room5.복지관306호[-1], Room3.복지관311호[-1]
-        ]
-
-        x = 0
-
-        fIDILIX = random.randint(1, int(seatnumlist[0]))
-        wCCCXVII = random.randint(1, int(seatnumlist[1]))
-        wStudyCafe = random.randint(1, int(seatnumlist[2]))
-        wCCCIII = random.randint(1, int(seatnumlist[3]))
-        wCCCVI = random.randint(1, int(seatnumlist[4]))
-        wCCCXI = random.randint(1, int(seatnumlist[5]))
-
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
-        unablelist = [fIDILIX, wCCCXVII, wStudyCafe, wCCCIII, wCCCVI, wCCCXI]
+        unablelist = ['fIDILIX', 'wCCCXVII', 'wStudyCafe', 'wCCCIII', 'wCCCVI', 'wCCCXI']
+        for entire in numlist:
+            unablelist[numlist.index(entire)] = random.randint(1, entire)
 
         r = 0;
         c = 0
         for btnText in roomlist:
-            entireSeat = int(seatnumlist[x])
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체
-            unableSeat = int(unablelist[x])
             # i는 이게 끝나면 1씩 증가
-            x += 1
-            s = Seat(entireSeat, unableSeat)
+            x = roomlist.index(btnText)
+            s = Seat(numlist[x], unablelist[x])
             # 남은 자리수와 전체 자리수 모두 나오도록 함
             # 남은 자리수가 음수여도 뜨는 문제가 있음 - 수정 필요
             button = Button(btnText + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch)

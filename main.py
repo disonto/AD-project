@@ -125,7 +125,7 @@ class Main(QWidget):
         self.switch_window.emit(key)
 
 # 방의 상세정보를 보여주는 창의 GUI 코드
-class Reservation1(QWidget):
+class Reservation(QWidget):
     switch_window = pyqtSignal()
 
     def __init__(self, room):
@@ -154,151 +154,6 @@ class Reservation1(QWidget):
     def quit(self):
         self.switch_window.emit()
 
-class Reservation2(QWidget):
-    switch_window = pyqtSignal()
-
-    def __init__(self, room):
-        super().__init__()
-
-        # Display Window
-        title = QLabel(room, self)
-
-        # Digit Buttons
-        quit_btn = Button("나가기", self.quit)
-        # 좌석배치에 맞는 버튼을 생성
-
-        # Layout
-        mainLayout = QGridLayout()
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
-
-        bubhak = Room2()
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bubhak.bubhakLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 8, 20)
-        
-        self.setLayout(mainLayout)
-        self.setWindowTitle("Seat Reservation")
-
-    # 버튼을 누르면 Controller에 신호보냄
-    def quit(self):
-        self.switch_window.emit()
-
-class Reservation3(QWidget):
-    switch_window = pyqtSignal()
-
-    def __init__(self, room):
-        super().__init__()
-
-        # Display Window
-        title = QLabel(room, self)
-
-        # Digit Buttons
-        quit_btn = Button("나가기", self.quit)
-        # 좌석배치에 맞는 버튼을 생성
-
-        # Layout
-        mainLayout = QGridLayout()
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
-
-        bokjione = Room3()
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjione.bokjioneLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 8, 7)
-        
-        self.setLayout(mainLayout)
-        self.setWindowTitle("Seat Reservation")
-
-    # 버튼을 누르면 Controller에 신호보냄
-    def quit(self):
-        self.switch_window.emit()
-
-class Reservation4(QWidget):
-    switch_window = pyqtSignal()
-
-    def __init__(self, room):
-        super().__init__()
-
-        # Display Window
-        title = QLabel(room, self)
-
-        # Digit Buttons
-        quit_btn = Button("나가기", self.quit)
-        # 좌석배치에 맞는 버튼을 생성
-
-        # Layout
-        mainLayout = QGridLayout()
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
-
-        bokjithree = Room4()
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjithree.bokjithreeLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 8, 8)
-        
-        self.setLayout(mainLayout)
-        self.setWindowTitle("Seat Reservation")
-
-    # 버튼을 누르면 Controller에 신호보냄
-    def quit(self):
-        self.switch_window.emit()
-
-class Reservation5(QWidget):
-    switch_window = pyqtSignal()
-
-    def __init__(self, room):
-        super().__init__()
-
-        # Display Window
-        title = QLabel(room, self)
-
-        # Digit Buttons
-        quit_btn = Button("나가기", self.quit)
-        # 좌석배치에 맞는 버튼을 생성
-
-        # Layout
-        mainLayout = QGridLayout()
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
-
-        bokjisix = Room5()
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjisix.bokjisixLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 14, 10)
-        
-        self.setLayout(mainLayout)
-        self.setWindowTitle("Seat Reservation")
-
-    # 버튼을 누르면 Controller에 신호보냄
-    def quit(self):
-        self.switch_window.emit()
-
-class Reservation6(QWidget):
-    switch_window = pyqtSignal()
-
-    def __init__(self, room):
-        super().__init__()
-
-        # Display Window
-        title = QLabel(room, self)
-
-        # Digit Buttons
-        quit_btn = Button("나가기", self.quit)
-        # 좌석배치에 맞는 버튼을 생성
-
-        # Layout
-        mainLayout = QGridLayout()
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
-
-        bokjiseven = Room6()
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjiseven.bokjisevenLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 11, 21)
-        
-        self.setLayout(mainLayout)
-        self.setWindowTitle("Seat Reservation")
-
-    # 버튼을 누르면 Controller에 신호보냄
-    def quit(self):
-        self.switch_window.emit()
-
 
 # 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:
@@ -313,61 +168,16 @@ class Controller:
 
     def show_main(self, where):
         self.main = Main()
+        self.main.switch_window.connect(self.show_Seat)
         if where == 'login':
             self.login.close()
-        elif where == '미래관 449호':
-            self.main.switch_window.connect(self.show_Seat1)
-            self.seat.close()
-        elif where == '복지관 317호':
-            self.main.switch_window.connect(self.show_Seat6)
-            self.seat.close()
-        elif where == '법학관 스터디카페':
-            self.main.switch_window.connect(self.show_Seat2)
-            self.seat.close()
-        elif where == '복지관 303호':
-            self.main.switch_window.connect(self.show_Seat4)
-            self.seat.close()
-        elif where == '복지관 306호':
-            self.main.switch_window.connect(self.show_Seat5)
-            self.seat.close()
-        elif where == '복지관 311호':
-            self.main.switch_window.connect(self.show_Seat3)
+        elif where == 'seat':
             self.seat.close()
         self.main.show()
 
-    def show_Seat1(self, room):
-        self.seat = Reservation1(room)
+    def show_Seat(self, room):
+        self.seat = Reservation(room)
         self.seat.switch_window.connect(lambda: self.show_main('미래관 449호'))
-        self.main.close()
-        self.seat.show()
-    
-    def show_Seat2(self, room):
-        self.seat = Reservation2(room)
-        self.seat.switch_window.connect(lambda: self.show_main('복지관 317호'))
-        self.main.close()
-        self.seat.show()
-    
-    def show_Seat3(self, room):
-        self.seat = Reservation3(room)
-        self.seat.switch_window.connect(lambda: self.show_main('법학관 스터디카페'))
-        self.main.close()
-        self.seat.show()
-    
-    def show_Seat4(self, room):
-        self.seat = Reservation4(room)
-        self.seat.switch_window.connect(lambda: self.show_main('복지관 303호'))
-        self.main.close()
-        self.seat.show()
-    
-    def show_Seat5(self, room):
-        self.seat = Reservation5(room)
-        self.seat.switch_window.connect(lambda: self.show_main('복지관 306호'))
-        self.main.close()
-        self.seat.show()
-    
-    def show_Seat6(self, room):
-        self.seat = Reservation6(room)
-        self.seat.switch_window.connect(lambda: self.show_main('복지관 311호'))
         self.main.close()
         self.seat.show()
 

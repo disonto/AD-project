@@ -1,4 +1,8 @@
 import sys
+import asyncio
+import random
+import Room
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
@@ -6,7 +10,7 @@ from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 from PyQt5.QtGui import QFont
 
-from Seatnum import Seat
+from Seatnum import Seat, TcpClientAsync
 from Room import Room1, Room2, Room3, Room4, Room5, Room6
 from login import check
 
@@ -73,10 +77,6 @@ class Login(QWidget):
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
-    # 일단 돌아가는지 확인하기 위해서 unable은 10으로, entire을 20으로 설정하도록 하자. -> 이제 오류 안나는데 확인바람
-    entireSeat = int(input()) # 가려고 하는 장소의 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
-    unableSeat = int(input()) # 앉을 수 없는 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
-    Seat = Seat(entireSeat, unableSeat)
     switch_window = pyqtSignal(str)
 
     def __init__(self):
@@ -94,11 +94,32 @@ class Main(QWidget):
             "복지관 303호 : ", "복지관 306호 : ", "복지관 311호 : ",
         ]
 
-        r = 0; c = 0
+        seatnumlist = [
+            Room1.미래관449호[-1], Room6.복지관317호[-1], Room2.법학관스터디카페[-1],
+            Room4.복지관303호[-1], Room5.복지관306호[-1], Room3.복지관311호[-1]
+        ]
+
+        x = 0
+
+        fIDILIX = random.randint(1, seatnumlist[0])
+        wCCCXVII = random.randint(1, seatnumlist[1])
+        wStudyCafe = random.randint(1, seatnumlist[2])
+        wCCCIII = random.randint(1, seatnumlist[3])
+        wCCCVI = random.randint(1, seatnumlist[4])
+        wCCCXI = random.randint(1, seatnumlist[5])
+
+        # 임시로 이미 찬 좌석 수는 입력 코드로 대체한다
+        unablelist = [fIDILIX, wCCCXVII, wStudyCafe, wCCCIII, wCCCVI, wCCCXI]
+
+        r = 0;
+        c = 0
         for btnText in roomlist:
-            # 돌아가는지 확인하기 위해 Seat(10, 20)으로 설정.
-            # 각각마다 n, m의 값이 달라지니 이를 받아와야할듯.
-            s = Seat(self.entireSeat, self.unableSeat)
+            entireSeat = int(seatnumlist[x])
+            # 임시로 이미 찬 좌석 수는 입력 코드로 대체
+            unableSeat = int(unablelist[x])
+            # i는 이게 끝나면 1씩 증가
+            x += 1
+            s = Seat(entireSeat, unableSeat)
             # 남은 자리수와 전체 자리수 모두 나오도록 함
             # 남은 자리수가 음수여도 뜨는 문제가 있음 - 수정 필요
             button = Button(btnText + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch)
@@ -143,9 +164,14 @@ class Reservation(QWidget):
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
         mirae = Room1()
+        bubhak = Room2()
+        bokjione = Room3()
+        bokjithree = Room4()
+        bokjisix = Room5()
+        bokjiseven = Room6()
         mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(mirae.miraeLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 5, 11)
+        mainLayout.addLayout(bokjisix.bokjisixLayout, 1, 0)
+        mainLayout.addWidget(quit_btn, 8, 20)
         
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
@@ -153,7 +179,6 @@ class Reservation(QWidget):
     # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
         self.switch_window.emit()
-
 
 # 신호를 받아서 다른 창을 띄워주는 코드
 class Controller:
@@ -177,9 +202,32 @@ class Controller:
 
     def show_Seat(self, room):
         self.seat = Reservation(room)
-        self.seat.switch_window.connect(lambda: self.show_main('미래관 449호'))
+        self.seat.switch_window.connect(lambda: self.show_main('seat'))
         self.main.close()
         self.seat.show()
+
+# 버튼 클릭시 서버로 신호를 보내는 클래스
+class ClientHandler:
+    def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+        self.client = TcpClientAsync(reader, writer)
+
+    async def funcAHandler(self):
+        pass # do something async
+
+    async def funcBHandler(self):
+        pass # do something async
+
+    # ...
+
+    async def startHandle(self):
+        while True:
+            await self.funcAHandler()
+            # await self.funcBHandler
+            # ...
+
+async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+    clientHandler = ClientHandler(reader, writer)
+    await clientHandler.startHandle()
 
 def main():
     app = QApplication(sys.argv)

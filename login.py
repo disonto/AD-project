@@ -1,10 +1,14 @@
 # 로그인 정보를 확인하는 파일
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 def check(id, pw):
     try:
-        driver = webdriver.Chrome(executable_path='chromedriver')
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        driver = webdriver.Chrome(chrome_options=options, executable_path='chromedriver')
         url = 'https://ecampus.kookmin.ac.kr/login/index.php'
         driver.get(url)
         driver.find_element(By.ID, "input-username").send_keys(id)

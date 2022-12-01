@@ -1,10 +1,12 @@
-import sys
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel
-from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
-from PyQt5.QtWidgets import QSizePolicy
-from PyQt5.QtWidgets import QLayout, QGridLayout
-from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QToolButton, QSizePolicy, QGridLayout
+
+Room_value = [
+    ('미래관 449호 : ', 20), ('복지관 317호 : ', 80), ('법학관 스터디카페 : ', 58),
+    ('복지관 303호 : ', 36), ('복지관 306호 : ', 74), ('복지관 311호 : ', 26)
+]
+
+roomlist = [x[0] for x in Room_value]
+numlist = [x[1] for x in Room_value]
 
 class Button(QToolButton):
 

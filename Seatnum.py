@@ -1,8 +1,6 @@
 #남은 좌석 알려주는 파일
 import asyncio
 import pickle
-from PyQt5.QtCore import Qt, pyqtSignal, QObject
-from Room import Room1, Room2, Room3, Room4, Room5, Room6
 
 PACKET_SIZE = 256
 

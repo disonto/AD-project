@@ -1,5 +1,8 @@
 import sys
 import asyncio
+import random
+import Room
+
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
@@ -74,10 +77,6 @@ class Login(QWidget):
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
-    # 일단 돌아가는지 확인하기 위해서 unable은 10으로, entire을 20으로 설정하도록 하자. -> 이제 오류 안나는데 확인바람
-    entireSeat = 20 # 가려고 하는 장소의 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
-    unableSeat = 10 # 앉을 수 없는 좌석 수, 서버에서 정수형으로 받아와야 함. input으로 받는 건 임시코드
-    Seat = Seat(entireSeat, unableSeat)
     switch_window = pyqtSignal(str)
 
     def __init__(self):
@@ -95,11 +94,32 @@ class Main(QWidget):
             "복지관 303호 : ", "복지관 306호 : ", "복지관 311호 : ",
         ]
 
-        r = 0; c = 0
+        seatnumlist = [
+            Room.미래관449호[-1], Room.복지관317호[-1], Room.복지관스터디카페[-1],
+            Room.복지관303호[-1], Room.복지관306호[-1], Room.복지관311호[-1]
+        ]
+
+        x = 0
+
+        fIDILIX = random.randint(1, seatnumlist[0])
+        wCCCXVII = random.randint(1, seatnumlist[1])
+        wStudyCafe = random.randint(1, seatnumlist[2])
+        wCCCIII = random.randint(1, seatnumlist[3])
+        wCCCVI = random.randint(1, seatnumlist[4])
+        wCCCXI = random.randint(1, seatnumlist[5])
+
+        # 임시로 이미 찬 좌석 수는 입력 코드로 대체한다
+        unablelist = [fIDILIX, wCCCXVII, wStudyCafe, wCCCIII, wCCCVI, wCCCXI]
+
+        r = 0;
+        c = 0
         for btnText in roomlist:
-            # 돌아가는지 확인하기 위해 Seat(10, 20)으로 설정.
-            # 각각마다 n, m의 값이 달라지니 이를 받아와야할듯.
-            s = Seat(self.entireSeat, self.unableSeat)
+            entireSeat = int(seatnumlist[x])
+            # 임시로 이미 찬 좌석 수는 입력 코드로 대체
+            unableSeat = int(unablelist[x])
+            # i는 이게 끝나면 1씩 증가
+            x += 1
+            s = Seat(entireSeat, unableSeat)
             # 남은 자리수와 전체 자리수 모두 나오도록 함
             # 남은 자리수가 음수여도 뜨는 문제가 있음 - 수정 필요
             button = Button(btnText + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch)

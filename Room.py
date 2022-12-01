@@ -248,64 +248,41 @@ class Room3():
     def __init__(self, parent=None):
         super().__init__()
 
-        self.bokjionebutton = [x for x in range(0 , 48)]
-        for i in range(0 , 48):
-            for i in range(0 , 3):
-                self.bokjionebutton[i] = Button(str(i+1), self.buttonClicked)
-            for i in range(3, 4):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(4 , 6):
-                self.bokjionebutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(6 , 9):
-                self.bokjionebutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(9 , 10):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(10 , 12):
-                self.bokjionebutton[i] = Button(str(i-1), self.buttonClicked)
-            for i in range(12 , 18):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(18 , 21):
-                self.bokjionebutton[i] = Button(str(i-7), self.buttonClicked)
-            for i in range(21 , 22):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(22 , 24):
-                self.bokjionebutton[i] = Button(str(i-8), self.buttonClicked)
-            for i in range(24 , 27):
-                self.bokjionebutton[i] = Button(str(i-8), self.buttonClicked)
-            for i in range(27 , 28):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(28 , 30):
-                self.bokjionebutton[i] = Button(str(i-9), self.buttonClicked)
-            for i in range(30 , 36):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(36 , 39):
-                self.bokjionebutton[i] = Button(str(i-15), self.buttonClicked)
-            for i in range(39 , 42):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
-            for i in range(42 , 45):
-                self.bokjionebutton[i] = Button(str(i-18), self.buttonClicked)
-            for i in range(45 , 48):
-                self.bokjionebutton[i] = Button("X", self.buttonClicked)
+        self.miraebutton = [x for x in range(0 , 45)]
+        for i in range(0 , 4):
+            self.miraebutton[i] = Button(str(i+1), self.buttonClicked)
+        for i in range(4, 5):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(5 , 9):
+            self.miraebutton[i] = Button(str(i), self.buttonClicked)
+        for i in range(9 , 18):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(18 , 22):
+            self.miraebutton[i] = Button(str(i-9), self.buttonClicked)
+        for i in range(22 , 23):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(23 , 27):
+            self.miraebutton[i] = Button(str(i-10), self.buttonClicked)
+        for i in range(27 , 36):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(36 , 40):
+            self.miraebutton[i] = Button(str(i-19), self.buttonClicked)
+        for i in range(40 , 45):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
         
-        self.bokjioneLayout = QGridLayout()
+        self.miraeLayout = QGridLayout()
 
-        for i in range(0, 48):
-            if 0 <= i <= 5:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 0, i)
-            elif 6 <= i <= 11:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 1, i-6)
-            elif 12 <= i <= 17:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 2, i-12)
-            elif 18 <= i <= 23:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 3, i-18)
-            elif 24 <= i <= 29:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 4, i-24)
-            elif 30 <= i <= 35:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 5, i-30)
-            elif 36 <= i <= 41:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 6, i-36)
-            elif 42 <= i <= 47:
-                self.bokjioneLayout.addWidget(self.bokjionebutton[i], 7, i-42)
+        for i in range(0, 45):
+            if 0 <= i <= 8:
+                self.miraeLayout.addWidget(self.miraebutton[i], 0, i)
+            elif 9 <= i <= 17:
+                self.miraeLayout.addWidget(self.miraebutton[i], 1, i-9)
+            elif 18 <= i <= 26:
+                self.miraeLayout.addWidget(self.miraebutton[i], 2, i-18)
+            elif 27 <= i <= 35:
+                self.miraeLayout.addWidget(self.miraebutton[i], 3, i-27)
+            elif 36 <= i <= 44:
+                self.miraeLayout.addWidget(self.miraebutton[i], 4, i-36)
             
     def buttonClicked(self):
         button = self.sender()
@@ -324,68 +301,41 @@ class Room4():
     def __init__(self, parent=None):
         super().__init__()
 
-        self.bokjithreebutton = [x for x in range(0 , 56)]
-        for i in range(0, 56):
-            for i in range(0 , 3):
-                self.bokjithreebutton[i] = Button(str(i+1), self.buttonClicked)
-            for i in range(3, 4):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(4 , 7):
-                self.bokjithreebutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(7 , 10):
-                self.bokjithreebutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(10 , 11):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(11 , 14):
-                self.bokjithreebutton[i] = Button(str(i-1), self.buttonClicked)
-            for i in range(14 , 21):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(21 , 24):
-                self.bokjithreebutton[i] = Button(str(i-8), self.buttonClicked)
-            for i in range(24 , 25):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(25 , 28):
-                self.bokjithreebutton[i] = Button(str(i-9), self.buttonClicked)
-            for i in range(28 , 31):
-                self.bokjithreebutton[i] = Button(str(i-9), self.buttonClicked)
-            for i in range(31 , 32):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(32 , 35):
-                self.bokjithreebutton[i] = Button(str(i-10), self.buttonClicked)
-            for i in range(35 , 42):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(42 , 45):
-                self.bokjithreebutton[i] = Button(str(i-17), self.buttonClicked)
-            for i in range(45 , 46):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(46 , 49):
-                self.bokjithreebutton[i] = Button(str(i-18), self.buttonClicked)
-            for i in range(49 , 52):
-                self.bokjithreebutton[i] = Button(str(i-18), self.buttonClicked)
-            for i in range(52 , 53):
-                self.bokjithreebutton[i] = Button("X", self.buttonClicked)
-            for i in range(53 , 56):
-                self.bokjithreebutton[i] = Button(str(i-19), self.buttonClicked)
+        self.miraebutton = [x for x in range(0 , 45)]
+        for i in range(0 , 4):
+            self.miraebutton[i] = Button(str(i+1), self.buttonClicked)
+        for i in range(4, 5):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(5 , 9):
+            self.miraebutton[i] = Button(str(i), self.buttonClicked)
+        for i in range(9 , 18):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(18 , 22):
+            self.miraebutton[i] = Button(str(i-9), self.buttonClicked)
+        for i in range(22 , 23):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(23 , 27):
+            self.miraebutton[i] = Button(str(i-10), self.buttonClicked)
+        for i in range(27 , 36):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(36 , 40):
+            self.miraebutton[i] = Button(str(i-19), self.buttonClicked)
+        for i in range(40 , 45):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
         
-        self.bokjithreeLayout = QGridLayout()
+        self.miraeLayout = QGridLayout()
 
-        for i in range(0, 56):
-            if 0 <= i <= 6:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 0, i)
-            elif 7 <= i <= 13:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 1, i-7)
-            elif 14 <= i <= 20:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 2, i-14)
-            elif 21 <= i <= 27:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 3, i-21)
-            elif 28 <= i <= 34:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 4, i-28)
-            elif 35 <= i <= 41:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 5, i-35)
-            elif 42 <= i <= 48:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 6, i-42)
-            elif 49 <= i <= 55:
-                self.bokjithreeLayout.addWidget(self.bokjithreebutton[i], 7, i-49)
+        for i in range(0, 45):
+            if 0 <= i <= 8:
+                self.miraeLayout.addWidget(self.miraebutton[i], 0, i)
+            elif 9 <= i <= 17:
+                self.miraeLayout.addWidget(self.miraebutton[i], 1, i-9)
+            elif 18 <= i <= 26:
+                self.miraeLayout.addWidget(self.miraebutton[i], 2, i-18)
+            elif 27 <= i <= 35:
+                self.miraeLayout.addWidget(self.miraebutton[i], 3, i-27)
+            elif 36 <= i <= 44:
+                self.miraeLayout.addWidget(self.miraebutton[i], 4, i-36)
 
     def buttonClicked(self):
         button = self.sender()
@@ -406,104 +356,41 @@ class Room5():
     def __init__(self, parent=None):
         super().__init__()
 
-        self.bokjisixbutton = [x for x in range(0 , 126)]
-        for i in range(0, 126):
-            for i in range(0 , 5):
-                self.bokjisixbutton[i] = Button(str(i+1), self.buttonClicked)
-            for i in range(5, 6):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(6 , 9):
-                self.bokjisixbutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(9 , 14):
-                self.bokjisixbutton[i] = Button(str(i), self.buttonClicked)
-            for i in range(14 , 15):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(15 , 18):
-                self.bokjisixbutton[i] = Button(str(i-1), self.buttonClicked)
-            for i in range(18 , 27):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(27 , 32):
-                self.bokjisixbutton[i] = Button(str(i-10), self.buttonClicked)
-            for i in range(32 , 33):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(33 , 36):
-                self.bokjisixbutton[i] = Button(str(i-11), self.buttonClicked)
-            for i in range(36 , 41):
-                self.bokjisixbutton[i] = Button(str(i-11), self.buttonClicked)
-            for i in range(41, 42):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(42 , 45):
-                self.bokjisixbutton[i] = Button(str(i-12), self.buttonClicked)
-            for i in range(45 , 54):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(54 , 59):
-                self.bokjisixbutton[i] = Button(str(i-21), self.buttonClicked)
-            for i in range(59 , 60):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(60 , 63):
-                self.bokjisixbutton[i] = Button(str(i-22), self.buttonClicked)
-            for i in range(63 , 68):
-                self.bokjisixbutton[i] = Button(str(i-22), self.buttonClicked)
-            for i in range(68 , 69):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(69 , 72):
-                self.bokjisixbutton[i] = Button(str(i-23), self.buttonClicked)
-            for i in range(72 , 81):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(81, 86):
-                self.bokjisixbutton[i] = Button(str(i-32), self.buttonClicked)
-            for i in range(86 , 87):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(87 , 90):
-                self.bokjisixbutton[i] = Button(str(i-33), self.buttonClicked)
-            for i in range(90 , 95):
-                self.bokjisixbutton[i] = Button(str(i-33), self.buttonClicked)
-            for i in range(95 , 96):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(96 , 99):
-                self.bokjisixbutton[i] = Button(str(i-34), self.buttonClicked)
-            for i in range(99 , 108):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(108 , 113):
-                self.bokjisixbutton[i] = Button(str(i-43), self.buttonClicked)
-            for i in range(113 , 117):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
-            for i in range(117 , 122):
-                self.bokjisixbutton[i] = Button(str(i-47), self.buttonClicked)
-            for i in range(122 , 126):
-                self.bokjisixbutton[i] = Button("X", self.buttonClicked)
+        self.miraebutton = [x for x in range(0 , 45)]
+        for i in range(0 , 4):
+            self.miraebutton[i] = Button(str(i+1), self.buttonClicked)
+        for i in range(4, 5):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(5 , 9):
+            self.miraebutton[i] = Button(str(i), self.buttonClicked)
+        for i in range(9 , 18):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(18 , 22):
+            self.miraebutton[i] = Button(str(i-9), self.buttonClicked)
+        for i in range(22 , 23):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(23 , 27):
+            self.miraebutton[i] = Button(str(i-10), self.buttonClicked)
+        for i in range(27 , 36):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
+        for i in range(36 , 40):
+            self.miraebutton[i] = Button(str(i-19), self.buttonClicked)
+        for i in range(40 , 45):
+            self.miraebutton[i] = Button("X", self.buttonClicked)
         
-        self.bokjisixLayout = QGridLayout()
+        self.miraeLayout = QGridLayout()
 
-        for i in range(0, 126):
+        for i in range(0, 45):
             if 0 <= i <= 8:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 0, i)
+                self.miraeLayout.addWidget(self.miraebutton[i], 0, i)
             elif 9 <= i <= 17:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 1, i-9)
+                self.miraeLayout.addWidget(self.miraebutton[i], 1, i-9)
             elif 18 <= i <= 26:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 2, i-18)
+                self.miraeLayout.addWidget(self.miraebutton[i], 2, i-18)
             elif 27 <= i <= 35:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 3, i-27)
+                self.miraeLayout.addWidget(self.miraebutton[i], 3, i-27)
             elif 36 <= i <= 44:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 4, i-36)
-            elif 45 <= i <= 53:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 5, i-45)
-            elif 54 <= i <= 62:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 6, i-54)
-            elif 63 <= i <= 71:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 7, i-63)
-            elif 72 <= i <= 80:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 8, i-72)
-            elif 81 <= i <= 89:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 9, i-81)
-            elif 90 <= i <= 98:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 10, i-90)
-            elif 99 <= i <= 107:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 11, i-99)
-            elif 108 <= i <= 116:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 12, i-108)
-            elif 117 <= i <= 125:
-                self.bokjisixLayout.addWidget(self.bokjisixbutton[i], 13, i-117)
+                self.miraeLayout.addWidget(self.miraebutton[i], 4, i-36)
 
     def buttonClicked(self):
         button = self.sender()

@@ -170,8 +170,8 @@ class Reservation(QWidget):
         bokjisix = Room5()
         bokjiseven = Room6()
         mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjisix.bokjisixLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 8, 20)
+        mainLayout.addLayout(bokjiseven.bokjisevenLayout, 1, 0)
+        mainLayout.addWidget(quit_btn, 13, 20)
         
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")

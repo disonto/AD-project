@@ -101,14 +101,14 @@ class Main(QWidget):
 
         x = 0
 
-        fIDILIX = random.randint(1, seatnumlist[0])
-        wCCCXVII = random.randint(1, seatnumlist[1])
-        wStudyCafe = random.randint(1, seatnumlist[2])
-        wCCCIII = random.randint(1, seatnumlist[3])
-        wCCCVI = random.randint(1, seatnumlist[4])
-        wCCCXI = random.randint(1, seatnumlist[5])
+        fIDILIX = random.randint(1, int(seatnumlist[0]))
+        wCCCXVII = random.randint(1, int(seatnumlist[1]))
+        wStudyCafe = random.randint(1, int(seatnumlist[2]))
+        wCCCIII = random.randint(1, int(seatnumlist[3]))
+        wCCCVI = random.randint(1, int(seatnumlist[4]))
+        wCCCXI = random.randint(1, int(seatnumlist[5]))
 
-        # 임시로 이미 찬 좌석 수는 입력 코드로 대체한다
+        # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
         unablelist = [fIDILIX, wCCCXVII, wStudyCafe, wCCCIII, wCCCVI, wCCCXI]
 
         r = 0;

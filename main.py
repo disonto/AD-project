@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap
 
 from Seatnum import Seat, TcpClientAsync
 from Room import Room1, Room2, Room3, Room4, Room5, Room6
@@ -37,33 +37,40 @@ class Login(QWidget):
         super().__init__()
 
         # Display Window
+        pixmap = QPixmap("logo.png").scaled(125, 125)
+        logo_img = QLabel()
+        logo_img.setPixmap(pixmap)
+        logo_img.setAlignment(Qt.AlignCenter)
+
         title = QLabel("국민대 자습실 현황", self)
         title.setFont(QFont("Arial", 20))
 
         id_text = QLineEdit()
-        pw_text = QLineEdit()
+        self.pw_text = QLineEdit()
 
         id_text.setPlaceholderText("아이디")
-        pw_text.setPlaceholderText("비밀번호")
-        pw_text.setEchoMode(QLineEdit.Password)
+        self.pw_text.setPlaceholderText("비밀번호")
+        self.pw_text.setEchoMode(QLineEdit.Password)
 
         # Button
-        Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), pw_text.text()))
+        Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), self.pw_text.text()))
 
         # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addWidget(id_text, 1, 0)
-        mainLayout.addWidget(pw_text, 2, 0)
-        mainLayout.addWidget(Login_btn, 3, 0)
+        mainLayout.addWidget(logo_img, 0, 0)
+        mainLayout.addWidget(title, 1, 0)
+        mainLayout.addWidget(id_text, 2, 0)
+        mainLayout.addWidget(self.pw_text, 3, 0)
+        mainLayout.addWidget(Login_btn, 4, 0)
 
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
     # 로그인 정보가 맞다면 Controller에 신호보냄
     def loginComfirm(self, id, pw):
+        self.pw_text.setEchoMode(QLineEdit.Normal)
         if id == '':
             QMessageBox.about(self, "로그인", "아이디를 입력하세요")
         elif pw == '':
@@ -74,6 +81,7 @@ class Login(QWidget):
                 self.switch_window.emit()
             else:
                 QMessageBox.about(self, "로그인", "아이디 비밀번호가 잘못되었습니다")
+                self.pw_text.setEchoMode(QLineEdit.Password)
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
@@ -219,3 +227,5 @@ if __name__ == '__main__':
 #    소프2 계산기
 #    https://wikidocs.net/35792
 #    https://mr-doosun.tistory.com/10
+#    https://wikidocs.net/33768
+#    https://wikidocs.net/38038

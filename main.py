@@ -100,7 +100,7 @@ class Main(QWidget):
         for entire in numlist:
             unablelist[numlist.index(entire)] = random.randint(1, entire)
 
-        r = 0;
+        r = 0
         c = 0
         for btnText in roomlist:
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체

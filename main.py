@@ -320,14 +320,15 @@ class Controller:
         self.login.switch_window.connect(lambda: self.show_main('login'))
         self.login.show()
 
+    # 여기부분 고쳐야함;;;
     def show_main(self, where):
         self.main = Main()
         self.main.switch_window.connect(self.show_Seat1)
-        self.main.switch_window.connect(self.show_Seat2)
-        self.main.switch_window.connect(self.show_Seat3)
-        self.main.switch_window.connect(self.show_Seat4)
-        self.main.switch_window.connect(self.show_Seat5)
-        self.main.switch_window.connect(self.show_Seat6)
+        # self.main.switch_window.connect(self.show_Seat2)
+        # self.main.switch_window.connect(self.show_Seat3)
+        # self.main.switch_window.connect(self.show_Seat4)
+        # self.main.switch_window.connect(self.show_Seat5)
+        # self.main.switch_window.connect(self.show_Seat6)
         if where == 'login':
             self.login.close()
         elif where == 'seat1':

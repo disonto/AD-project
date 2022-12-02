@@ -1,17 +1,17 @@
 import sys
 import asyncio
 import random
-import Room
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QPixmap
 
 from Seatnum import Seat, TcpClientAsync
 from Room import Room1, Room2, Room3, Room4, Room5, Room6
+from Room import roomlist, numlist, Room_value
 from login import check
 
 # mycalc3의 Button class 그대로 가져옴
@@ -37,33 +37,40 @@ class Login(QWidget):
         super().__init__()
 
         # Display Window
+        pixmap = QPixmap("logo.png").scaled(125, 125)
+        logo_img = QLabel()
+        logo_img.setPixmap(pixmap)
+        logo_img.setAlignment(Qt.AlignCenter)
+
         title = QLabel("국민대 자습실 현황", self)
         title.setFont(QFont("Arial", 20))
 
         id_text = QLineEdit()
-        pw_text = QLineEdit()
+        self.pw_text = QLineEdit()
 
         id_text.setPlaceholderText("아이디")
-        pw_text.setPlaceholderText("비밀번호")
-        pw_text.setEchoMode(QLineEdit.Password)
+        self.pw_text.setPlaceholderText("비밀번호")
+        self.pw_text.setEchoMode(QLineEdit.Password)
 
         # Button
-        Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), pw_text.text()))
+        Login_btn = Button("login", lambda : self.loginComfirm(id_text.text(), self.pw_text.text()))
 
         # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
-        mainLayout.addWidget(title, 0, 0)
-        mainLayout.addWidget(id_text, 1, 0)
-        mainLayout.addWidget(pw_text, 2, 0)
-        mainLayout.addWidget(Login_btn, 3, 0)
+        mainLayout.addWidget(logo_img, 0, 0)
+        mainLayout.addWidget(title, 1, 0)
+        mainLayout.addWidget(id_text, 2, 0)
+        mainLayout.addWidget(self.pw_text, 3, 0)
+        mainLayout.addWidget(Login_btn, 4, 0)
 
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
     # 로그인 정보가 맞다면 Controller에 신호보냄
     def loginComfirm(self, id, pw):
+        self.pw_text.setEchoMode(QLineEdit.Normal)
         if id == '':
             QMessageBox.about(self, "로그인", "아이디를 입력하세요")
         elif pw == '':
@@ -74,6 +81,7 @@ class Login(QWidget):
                 self.switch_window.emit()
             else:
                 QMessageBox.about(self, "로그인", "아이디 비밀번호가 잘못되었습니다")
+                self.pw_text.setEchoMode(QLineEdit.Password)
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
@@ -87,39 +95,18 @@ class Main(QWidget):
         # Digit Buttons
         roomLayout = QGridLayout()
 
-        # roomlist을 room.py로 넘기면 좋을것같음
-        # 6개 정도? 아니면 미래관 449랑 복지관 317, 복지관 306 정도로만 줄여도 될 듯.
-        roomlist = [
-            "미래관 449호 : ", "복지관 317호 : ", "법학관 스터디카페 : ",
-            "복지관 303호 : ", "복지관 306호 : ", "복지관 311호 : ",
-        ]
-
-        seatnumlist = [
-            Room1.미래관449호[-1], Room6.복지관317호[-1], Room2.법학관스터디카페[-1],
-            Room4.복지관303호[-1], Room5.복지관306호[-1], Room3.복지관311호[-1]
-        ]
-
-        x = 0
-
-        fIDILIX = random.randint(1, seatnumlist[0])
-        wCCCXVII = random.randint(1, seatnumlist[1])
-        wStudyCafe = random.randint(1, seatnumlist[2])
-        wCCCIII = random.randint(1, seatnumlist[3])
-        wCCCVI = random.randint(1, seatnumlist[4])
-        wCCCXI = random.randint(1, seatnumlist[5])
-
-        # 임시로 이미 찬 좌석 수는 입력 코드로 대체한다
-        unablelist = [fIDILIX, wCCCXVII, wStudyCafe, wCCCIII, wCCCVI, wCCCXI]
+        # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
+        unablelist = ['fIDILIX', 'wCCCXVII', 'wStudyCafe', 'wCCCIII', 'wCCCVI', 'wCCCXI']
+        for entire in numlist:
+            unablelist[numlist.index(entire)] = random.randint(1, entire)
 
         r = 0;
         c = 0
         for btnText in roomlist:
-            entireSeat = int(seatnumlist[x])
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체
-            unableSeat = int(unablelist[x])
             # i는 이게 끝나면 1씩 증가
-            x += 1
-            s = Seat(entireSeat, unableSeat)
+            x = roomlist.index(btnText)
+            s = Seat(numlist[x], unablelist[x])
             # 남은 자리수와 전체 자리수 모두 나오도록 함
             # 남은 자리수가 음수여도 뜨는 문제가 있음 - 수정 필요
             button = Button(btnText + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch)
@@ -212,18 +199,15 @@ class ClientHandler:
         self.client = TcpClientAsync(reader, writer)
 
     async def funcAHandler(self):
-        pass # do something async
+        pass # 버튼 누르면 seat 변수 계산
 
     async def funcBHandler(self):
-        pass # do something async
-
-    # ...
+        pass # 버튼 누르면 'X' 표시 뜨게 함
 
     async def startHandle(self):
         while True:
             await self.funcAHandler()
-            # await self.funcBHandler
-            # ...
+            await self.funcBHandler()
 
 async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
     clientHandler = ClientHandler(reader, writer)
@@ -243,3 +227,5 @@ if __name__ == '__main__':
 #    소프2 계산기
 #    https://wikidocs.net/35792
 #    https://mr-doosun.tistory.com/10
+#    https://wikidocs.net/33768
+#    https://wikidocs.net/38038

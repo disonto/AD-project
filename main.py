@@ -95,7 +95,6 @@ class Main(QWidget):
         # Digit Buttons
         roomLayout = QGridLayout()
 
-        roomlist = ["미래관 449호", "복지관 317호", "법학관 스터디카페", "복지관 303호", "복지관 306호", "복지관 311호"]
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
         unablelist = ['fIDILIX', 'wCCCXVII', 'wStudyCafe', 'wCCCIII', 'wCCCVI', 'wCCCXI']
         for entire in numlist:

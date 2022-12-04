@@ -174,7 +174,7 @@ class Reservation(QWidget):
                         r += 1
 
         mainLayout.addLayout(seatLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 20, 20)
+        mainLayout.addWidget(quit_btn, 2, 1)
         
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")

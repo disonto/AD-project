@@ -179,7 +179,7 @@ class Reservation(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
 
-       #button.setStyleSheet('QToolButton {background-color: #A3C1DA; color: blue;}')
+    #button.setStyleSheet('QToolButton {background-color: #A3C1DA; color: blue;}')
     #    "background-color: #FF0000"
     #    "background-color: #008000"
     # )

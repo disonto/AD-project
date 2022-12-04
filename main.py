@@ -167,6 +167,12 @@ class Reservation(QWidget):
                 buttonPad = buttonGroups[label]
                 for btnText in buttonPad['buttons']:
                     button = Button(btnText, self.buttonClicked)
+                    # 이거는 예약 가능한 버튼 색
+                    button.setStyleSheet('QToolButton {background-color: rgb(138,238,64); color: black;}')
+                    # 이거는 예약 불가한 버튼 색
+                    #button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
+                    # 이거는 그냥 자리가 아닌 부분의 색
+                    #button.setStyleSheet('QToolButton {background-color: black; color: black;}')
                     seatLayout.addWidget(button, r, c)
                     c += 1
                     if c > buttonPad['columns']:

@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 def check(id, pw):
     try:
         driver = webdriver.Chrome(executable_path='chromedriver')
+        driver.minimize_window()
         url = 'https://ecampus.kookmin.ac.kr/login/index.php'
         driver.get(url)
         driver.find_element(By.ID, "input-username").send_keys(id)

@@ -98,6 +98,7 @@ class Main(QWidget):
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
         unablelist = [random.randint(1, entire) for entire in numlist]
 
+
         r = 0; c = 0
         for btnText in roomlist:
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체

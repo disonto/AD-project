@@ -85,7 +85,7 @@ class Login(QWidget):
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
-    switch_window = pyqtSignal(str)
+    switch_window = pyqtSignal(str, int)
 
     def __init__(self):
         super().__init__()
@@ -97,7 +97,6 @@ class Main(QWidget):
 
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
         unablelist = [random.randint(1, entire) for entire in numlist]
-
 
         r = 0; c = 0
         for btnText in roomlist:
@@ -126,20 +125,24 @@ class Main(QWidget):
     # Controller에 보낼 신호를 생성
     # 버튼을 누르면 Controller에 방이름 신호보냄
     def Switch(self):
-        button = self.sender()
-        key = button.text()[:-7]
-        self.switch_window.emit(key)
+        key = self.sender().text()[0]
+        unable = self.sender().text()[-5:-3]
+        self.switch_window.emit(key, int(unable.lstrip()))
 
 # 방의 상세정보를 보여주는 창의 GUI 코드
 class Reservation(QWidget):
     switch_window = pyqtSignal()
 
-    def __init__(self, room):
-        global seatgui
+    def __init__(self, room, unable):
         super().__init__()
 
+        #임시코드
+        for i in roomlist:
+            if room == i[0]:
+                unableseat = random.sample(range(1, numlist[roomlist.index(i)]+1), unable)
+                print(unableseat)
         # Display Window
-        title = QLabel(room, self)
+        title = QLabel(i[2:], self)
 
         # Digit Buttons
         quit_btn = Button("나가기", self.quit)
@@ -151,27 +154,27 @@ class Reservation(QWidget):
         seatLayout = QGridLayout()
 
         buttonGroups = {
-            '미래관 449호': {'buttons': miraeList, 'columns': 8},
-            '법학관 스터디카페': {'buttons': bubhakList, 'columns': 15},
-            '복지관 311호': {'buttons': bokjioneList, 'columns': 5},
-            '복지관 303호': {'buttons': bokjithreeList, 'columns': 6},
-            '복지관 306호': {'buttons': bokjisixList, 'columns': 8},
-            '복지관 317호': {'buttons': bokjisevenList, 'columns': 19},
+            '1.미래관 449호': {'buttons': miraeList, 'columns': 8},
+            '2.법학관 스터디카페': {'buttons': bubhakList, 'columns': 15},
+            '3.복지관 311호': {'buttons': bokjioneList, 'columns': 5},
+            '4.복지관 303호': {'buttons': bokjithreeList, 'columns': 6},
+            '5.복지관 306호': {'buttons': bokjisixList, 'columns': 8},
+            '6.복지관 317호': {'buttons': bokjisevenList, 'columns': 19},
         }
 
         mainLayout.addWidget(title, 0, 0)
         for label in buttonGroups.keys():
-            if room ==label:
+            if room ==label[0]:
                 r = 0; c = 0
                 buttonPad = buttonGroups[label]
                 for btnText in buttonPad['buttons']:
                     button = Button(btnText, self.buttonClicked)
-                    # 이거는 예약 가능한 버튼 색
-                    button.setStyleSheet('QToolButton {background-color: rgb(138,238,64); color: black;}')
-                    # 이거는 예약 불가한 버튼 색
-                    #button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
-                    # 이거는 그냥 자리가 아닌 부분의 색
-                    #button.setStyleSheet('QToolButton {background-color: black; color: black;}')
+                    if button.text() == ' ':
+                        button.setStyleSheet('QToolButton {background-color: black; color: black;}')
+                    elif int(button.text()) in unableseat:
+                        button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
+                    else:
+                        button.setStyleSheet('QToolButton {background-color: rgb(138,238,64); color: black;}')
                     seatLayout.addWidget(button, r, c)
                     c += 1
                     if c > buttonPad['columns']:
@@ -183,11 +186,6 @@ class Reservation(QWidget):
         
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
-
-    # button.setStyleSheet(
-    #    "background-color: #FF0000"
-    #    "background-color: #008000"
-    # )
 
     def buttonClicked(self):
         button = self.sender()
@@ -217,8 +215,8 @@ class Controller:
             self.seat.close()
         self.main.show()
  
-    def show_Seat(self, room):
-        self.seat = Reservation(room)
+    def show_Seat(self, room, unable):
+        self.seat = Reservation(room, unable)
         self.seat.switch_window.connect(lambda: self.show_main('seat'))
         self.main.close()
         self.seat.show()

@@ -257,3 +257,5 @@ if __name__ == '__main__':
 #    https://mr-doosun.tistory.com/10
 #    https://wikidocs.net/33768
 #    https://wikidocs.net/38038
+#    https://stackoverflow.com/questions/46693355/pyqt5-typeerror-signal-has-0-arguments-but-1-provided
+#    https://janeljs.github.io/python/sample()/

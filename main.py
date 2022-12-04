@@ -161,7 +161,7 @@ class Reservation(QWidget):
 
         mainLayout.addWidget(title, 0, 0)
         for label in buttonGroups.keys():
-            if room ==label:
+            if room == label:
                 r = 0; c = 0
                 buttonPad = buttonGroups[label]
                 for btnText in buttonPad['buttons']:

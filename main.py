@@ -96,9 +96,8 @@ class Main(QWidget):
         roomLayout = QGridLayout()
 
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
-        unablelist = ['fIDILIX', 'wCCCXVII', 'wStudyCafe', 'wCCCIII', 'wCCCVI', 'wCCCXI']
-        for entire in numlist:
-            unablelist[numlist.index(entire)] = random.randint(1, entire)
+        unablelist = [random.randint(1, entire) for entire in numlist]
+
 
         r = 0; c = 0
         for btnText in roomlist:

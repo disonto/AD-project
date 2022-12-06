@@ -100,7 +100,7 @@ class Main(QWidget):
         for entire in numlist:
             unablelist[numlist.index(entire)] = random.randint(1, entire)
 
-        r = 0;
+        r = 0
         c = 0
         for btnText in roomlist:
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체
@@ -109,7 +109,7 @@ class Main(QWidget):
             s = Seat(numlist[x], unablelist[x])
             # 남은 자리수와 전체 자리수 모두 나오도록 함
             # 남은 자리수가 음수여도 뜨는 문제가 있음 - 수정 필요
-            button = Button(btnText + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch)
+            button = Button(btnText + " : " + str(s.getLeftSeatNum()) + "/" + str(s.getSeatNum()), self.Switch())
             roomLayout.addWidget(button, r, c)
             c += 1
             if c > 2:
@@ -129,18 +129,18 @@ class Main(QWidget):
     # 버튼을 누르면 Controller에 방이름 신호보냄
     def Switch(self):
         button = self.sender()
-        key = button.text()[:-5]
+        key = button.text()
         self.switch_window.emit(key)
 
 # 방의 상세정보를 보여주는 창의 GUI 코드
 class Reservation1(QWidget):
     switch_window = pyqtSignal()
 
-    def __init__(self, room1):
+    def __init__(self):
         super().__init__()
 
         # Display Window
-        title = QLabel(room1, self)
+        title = QLabel(self)
 
         # Digit Buttons
         quit_btn = Button("나가기", self.quit)
@@ -316,38 +316,19 @@ class Controller:
 
     def show_login(self):
         self.login = Login()
-        self.login.switch_window.connect(lambda: self.show_main('login'))
+        self.login.switch_window.connect(self.show_main('login'))
         self.login.show()
 
     # 여기부분 고쳐야함;;;
-    def show_main(self, where):
+    def show_main(self, text):
         self.main = Main()
-        self.main.switch_window.connect(self.show_Seat1)
-        # self.main.switch_window.connect(self.show_Seat2)
-        # self.main.switch_window.connect(self.show_Seat3)
-        # self.main.switch_window.connect(self.show_Seat4)
-        # self.main.switch_window.connect(self.show_Seat5)
-        # self.main.switch_window.connect(self.show_Seat6)
-        if where == 'login':
-            self.login.close()
-        elif where == 'seat1':
-            self.seat1.close()
-        elif where == 'seat2':
-            self.seat2.close()
-        elif where == 'seat3':
-            self.seat3.close()
-        elif where == 'seat4':
-            self.seat4.close()
-        elif where == 'seat5':
-            self.seat5.close()
-        elif where == 'seat6':
-            self.seat6.close()
+        if '미래관' in text:
+            self.main.switch_window.connect(self.show_Seat1())
+        self.login.close()
         self.main.show()
 
- 
-    def show_Seat1(self, room):
-        self.seat1 = Reservation1(room)
-        self.seat1.switch_window.connect(lambda: self.show_main('seat1'))
+    def show_Seat1(self):
+        self.seat1 = Reservation1()
         self.main.close()
         self.seat1.show()
     

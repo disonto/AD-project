@@ -1,14 +1,14 @@
-from PyQt5.QtWidgets import QToolButton, QSizePolicy, QGridLayout
+from PyQt5.QtWidgets import QPushButton, QToolButton, QSizePolicy, QGridLayout
 
 Room_value = [
-    ('미래관 449호 : ', 20), ('복지관 317호 : ', 80), ('법학관 스터디카페 : ', 58),
-    ('복지관 303호 : ', 36), ('복지관 306호 : ', 74), ('복지관 311호 : ', 26)
+    ('미래관 449호', 20), ('복지관 317호', 80), ('법학관스터디카페', 58),
+    ('복지관 303호', 36), ('복지관 306호', 74), ('복지관 311호', 26)
 ]
 
 roomlist = [x[0] for x in Room_value]
 numlist = [x[1] for x in Room_value]
 
-class Button(QToolButton):
+class Button(QPushButton):
 
     def __init__(self, text, callback):
         super().__init__()

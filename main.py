@@ -192,9 +192,9 @@ class Reservation(QWidget):
                     if button.text() == ' ':
                         button.setStyleSheet('QToolButton {background-color: black; color: black;}')
                     elif int(button.text()) in unableseat:
-                        button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
-                    else:
                         button.setStyleSheet('QToolButton {background-color: rgb(138,238,64); color: black;}')
+                    else:
+                        button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
                     seatLayout.addWidget(button, r, c)
                     c += 1
                     if c > buttonPad['columns']:

@@ -4,14 +4,14 @@ import random
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
-from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox
+from PyQt5.QtWidgets import QLineEdit, QToolButton, QMessageBox, QPushButton
 from PyQt5.QtWidgets import QSizePolicy
 from PyQt5.QtWidgets import QLayout, QGridLayout
 from PyQt5.QtGui import QFont, QPixmap
 
 from Seatnum import Seat, TcpClientAsync
-from Room import Room1, Room2, Room3, Room4, Room5, Room6
 from Room import roomlist, numlist, Room_value
+from Room import miraeList, bubhakList, bokjioneList, bokjithreeList, bokjisixList, bokjisevenList
 from login import check
 
 # mycalc3의 Button class 그대로 가져옴
@@ -85,7 +85,7 @@ class Login(QWidget):
 
 # 자습실을 보여주는 창의 GUI 코드
 class Main(QWidget):
-    switch_window = pyqtSignal(str)
+    switch_window = pyqtSignal(str, int)
 
     def __init__(self):
         super().__init__()
@@ -96,12 +96,9 @@ class Main(QWidget):
         roomLayout = QGridLayout()
 
         # 임시코드. 서버에서 실시간으로 불러오는 코드를 대체한다.
-        unablelist = ['fIDILIX', 'wCCCXVII', 'wStudyCafe', 'wCCCIII', 'wCCCVI', 'wCCCXI']
-        for entire in numlist:
-            unablelist[numlist.index(entire)] = random.randint(1, entire)
+        unablelist = [random.randint(1, entire) for entire in numlist]
 
-        r = 0
-        c = 0
+        r = 0; c = 0
         for btnText in roomlist:
             # 임시로 이미 찬 좌석 수는 입력 코드로 대체
             # i는 이게 끝나면 1씩 증가
@@ -115,7 +112,7 @@ class Main(QWidget):
             if c > 2:
                 c = 0
                 r += 1
-
+       
         # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
@@ -128,19 +125,24 @@ class Main(QWidget):
     # Controller에 보낼 신호를 생성
     # 버튼을 누르면 Controller에 방이름 신호보냄
     def Switch(self):
-        button = self.sender()
-        key = button.text()[:-5]
-        self.switch_window.emit(key)
+        key = self.sender().text()[0]
+        unable = self.sender().text()[-5:-3]
+        self.switch_window.emit(key, int(unable.lstrip()))
 
 # 방의 상세정보를 보여주는 창의 GUI 코드
 class Reservation(QWidget):
     switch_window = pyqtSignal()
 
-    def __init__(self, room):
+    def __init__(self, room, unable):
         super().__init__()
 
+        #임시코드
+        for i in roomlist:
+            if room == i[0]:
+                unableseat = random.sample(range(1, numlist[roomlist.index(i)]+1), unable)
+                print(unableseat)
         # Display Window
-        title = QLabel(room, self)
+        title = QLabel(i[2:], self)
 
         # Digit Buttons
         quit_btn = Button("나가기", self.quit)
@@ -149,19 +151,45 @@ class Reservation(QWidget):
         # Layout
         mainLayout = QGridLayout()
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        seatLayout = QGridLayout()
 
-        mirae = Room1()
-        bubhak = Room2()
-        bokjione = Room3()
-        bokjithree = Room4()
-        bokjisix = Room5()
-        bokjiseven = Room6()
+        buttonGroups = {
+            '1.미래관 449호': {'buttons': miraeList, 'columns': 8},
+            '2.법학관 스터디카페': {'buttons': bubhakList, 'columns': 15},
+            '3.복지관 311호': {'buttons': bokjioneList, 'columns': 5},
+            '4.복지관 303호': {'buttons': bokjithreeList, 'columns': 6},
+            '5.복지관 306호': {'buttons': bokjisixList, 'columns': 8},
+            '6.복지관 317호': {'buttons': bokjisevenList, 'columns': 19},
+        }
+
         mainLayout.addWidget(title, 0, 0)
-        mainLayout.addLayout(bokjisix.bokjisixLayout, 1, 0)
-        mainLayout.addWidget(quit_btn, 8, 20)
+        for label in buttonGroups.keys():
+            if room ==label[0]:
+                r = 0; c = 0
+                buttonPad = buttonGroups[label]
+                for btnText in buttonPad['buttons']:
+                    button = Button(btnText, self.buttonClicked)
+                    if button.text() == ' ':
+                        button.setStyleSheet('QToolButton {background-color: black; color: black;}')
+                    elif int(button.text()) in unableseat:
+                        button.setStyleSheet('QToolButton {background-color: rgb(250,86,86); color: black;}')
+                    else:
+                        button.setStyleSheet('QToolButton {background-color: rgb(138,238,64); color: black;}')
+                    seatLayout.addWidget(button, r, c)
+                    c += 1
+                    if c > buttonPad['columns']:
+                        c = 0;
+                        r += 1
+
+        mainLayout.addLayout(seatLayout, 1, 0)
+        mainLayout.addWidget(quit_btn, 2, 1)
         
         self.setLayout(mainLayout)
         self.setWindowTitle("Seat Reservation")
+
+    def buttonClicked(self):
+        button = self.sender()
+        key = button.text()
 
     # 버튼을 누르면 Controller에 신호보냄
     def quit(self):
@@ -186,9 +214,9 @@ class Controller:
         elif where == 'seat':
             self.seat.close()
         self.main.show()
-
-    def show_Seat(self, room):
-        self.seat = Reservation(room)
+ 
+    def show_Seat(self, room, unable):
+        self.seat = Reservation(room, unable)
         self.seat.switch_window.connect(lambda: self.show_main('seat'))
         self.main.close()
         self.seat.show()
@@ -229,3 +257,5 @@ if __name__ == '__main__':
 #    https://mr-doosun.tistory.com/10
 #    https://wikidocs.net/33768
 #    https://wikidocs.net/38038
+#    https://stackoverflow.com/questions/46693355/pyqt5-typeerror-signal-has-0-arguments-but-1-provided
+#    https://janeljs.github.io/python/sample()/

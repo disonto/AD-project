@@ -136,13 +136,18 @@ class Reservation(QWidget):
     def __init__(self, room, unable):
         super().__init__()
 
+        temp = roomlist[::]
+
         #임시코드
         for i in roomlist:
             if room == i[0]:
-                unableseat = random.sample(range(1, numlist[roomlist.index(i)]+1), unable)
+                name = temp.index(i)
+                unableseat = random.sample(range(1, numlist[name]+1), unable)
+                title = QLabel(i[2:], self)
+                temp.pop(name)
                 print(unableseat)
         # Display Window
-        title = QLabel(i[2:], self)
+        
 
         # Digit Buttons
         quit_btn = Button("나가기", self.quit)
